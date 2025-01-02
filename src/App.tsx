@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Modal from './components/modal/Modal';
+import Popup from './components/popup/Popup';
 
-function App() {
+const App: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState<string>('');
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleShowPopup = () => {
+    setPopupMessage('This is a simple popup!');
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={handleOpenModal} className="open-modal-btn">
+        Open Modal
+      </button>
+
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Sample Modal">
+        <p>This is a simple modal popup using React and TypeScript.</p>
+      </Modal>
+
+      <button onClick={handleShowPopup} className="show-popup-btn">
+        Show Popup
+      </button>
+
+      {/* 팝업 컴포넌트 */}
+      {popupMessage && <Popup message={popupMessage} duration={3000} />}
     </div>
   );
-}
+};
 
 export default App;
