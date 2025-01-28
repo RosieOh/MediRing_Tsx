@@ -1,5 +1,3 @@
-// src/utils/login.ts
-
 export const handleLogin = (
   e: React.FormEvent,
   email: string,
