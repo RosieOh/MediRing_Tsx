@@ -1,41 +1,35 @@
-import React, { useState } from 'react';
-import './App.css';
-import Modal from './components/modal/Modal';
-import Popup from './components/popup/Popup';
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import MainCarousel from './components/carousel/MainCarousel';
+import Footer from './components/layout/footer/Footer';
+import Header from './components/layout/header/Header';
+import Hero from './components/layout/hero/Hero';
+import Login from './pages/login/Login'; // 로그인 페이지 추가
+import SupportPage from './pages/support/SupportPage'; // 고객지원 페이지
 
 const App: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupMessage, setPopupMessage] = useState<string>('');
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleShowPopup = () => {
-    setPopupMessage('This is a simple popup!');
-  };
-
   return (
-    <div className="App">
-      <button onClick={handleOpenModal} className="open-modal-btn">
-        Open Modal
-      </button>
+    <Router>
+      <Header />
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Sample Modal">
-        <p>This is a simple modal popup using React and TypeScript.</p>
-      </Modal>
+      {/* 조건부로 Hero와 MainCarousel 렌더링 */}
+      <Routes>
+        <Route path="/support" element={<SupportPage />} /> {/* 고객지원 페이지 */}
+        {/* /support가 아닐 경우에만 Hero와 MainCarousel 렌더링 */}
+        <Route
+          path="*"
+          element={
+            <>
+              <Hero />
+              <MainCarousel />
+            </>
+          }
+        />
+        <Route path="/login" element={<Login />} /> {/* 로그인 페이지 라우트 추가 */}
+      </Routes>
 
-      <button onClick={handleShowPopup} className="show-popup-btn">
-        Show Popup
-      </button>
-
-      {/* 팝업 컴포넌트 */}
-      {popupMessage && <Popup message={popupMessage} duration={3000} />}
-    </div>
+      <Footer />
+    </Router>
   );
 };
 
