@@ -1,40 +1,52 @@
+import React from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import * as S from './style';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
-    <S.FooterWrapper>
+    <S.FooterContainer>
       <S.FooterContents>
-        {/* 브랜드 섹션 */}
         <S.BrandSection>
-          <S.Logo>MEDIRING</S.Logo>
-          <S.FooterSlogan>당신의 건강을 위한 최적의 선택</S.FooterSlogan>
+          <S.FooterLogo>MediRing</S.FooterLogo>
+          <S.FooterSlogan>
+            당신의 건강한 삶을 위한 최고의 선택
+          </S.FooterSlogan>
         </S.BrandSection>
 
-        {/* 유용한 링크 섹션 */}
         <S.LinksSection>
-          <S.FooterLink href="#">이용약관</S.FooterLink>
-          <S.FooterLink href="#">개인정보처리방침</S.FooterLink>
-          <S.FooterLink href="#">문의하기</S.FooterLink>
+          <S.LinksTitle>서비스</S.LinksTitle>
+          <S.FooterLink href="/about">회사 소개</S.FooterLink>
+          <S.FooterLink href="/services">서비스</S.FooterLink>
+          <S.FooterLink href="/contact">문의하기</S.FooterLink>
         </S.LinksSection>
 
-        {/* 소셜 미디어 섹션 */}
-        <S.SocialContainer>
-          <S.SocialIcon href="#" aria-label="Facebook">
-            {FaFacebook({})}
-          </S.SocialIcon>
-          <S.SocialIcon href="#" aria-label="Twitter">
-            {FaTwitter({})}
-          </S.SocialIcon>
-          <S.SocialIcon href="#" aria-label="Instagram">
-            {FaInstagram({})}
-          </S.SocialIcon>
-        </S.SocialContainer>
+        <S.LinksSection>
+          <S.LinksTitle>고객지원</S.LinksTitle>
+          <S.FooterLink href="/support">고객지원</S.FooterLink>
+          <S.FooterLink href="/faq">자주 묻는 질문</S.FooterLink>
+          <S.FooterLink href="/terms">이용약관</S.FooterLink>
+        </S.LinksSection>
+
+        <S.LinksSection>
+          <S.LinksTitle>소셜 미디어</S.LinksTitle>
+          <S.SocialContainer>
+            <S.SocialIcon href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              {FaFacebook({})}
+            </S.SocialIcon>
+            <S.SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              {FaTwitter({})}
+            </S.SocialIcon>
+            <S.SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              {FaInstagram({})}
+            </S.SocialIcon>
+          </S.SocialContainer>
+        </S.LinksSection>
       </S.FooterContents>
 
-      {/* 저작권 정보 */}
-      <S.Copyright>© 2024 MEDIRING. All rights reserved.</S.Copyright>
-    </S.FooterWrapper>
+      <S.Copyright>
+        © 2024 MediRing. All rights reserved.
+      </S.Copyright>
+    </S.FooterContainer>
   );
 };
 
