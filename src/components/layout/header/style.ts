@@ -44,7 +44,7 @@ export const HeaderNav = styled.nav`
   }
 `;
 
-export const HeaderNavItem = styled(Link)`
+export const HeaderNavItem = styled(Link)<{ to: string }>`
   font-size: 0.875rem;
   color: #4A7B43;
   text-decoration: none;
@@ -53,6 +53,43 @@ export const HeaderNavItem = styled(Link)`
 
   &:hover {
     color: #2D5A27;
+  }
+`;
+
+export const AuthButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1rem;
+`;
+
+export const LoginButton = styled(Link)<{ to: string }>`
+  font-size: 0.875rem;
+  color: #2D5A27;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(123, 198, 163, 0.1);
+  }
+`;
+
+export const SignUpButton = styled(Link)<{ to: string }>`
+  font-size: 0.875rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7BC6A3 0%, #6BB592 100%);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(123, 198, 163, 0.3);
   }
 `;
 
@@ -93,7 +130,7 @@ export const MobileMenu = styled.div<{ isOpen: boolean }>`
   }
 `;
 
-export const MobileNavItem = styled(Link)`
+export const MobileNavItem = styled(Link)<{ to: string }>`
   display: block;
   padding: 0.75rem 0;
   color: #4A7B43;
@@ -104,5 +141,47 @@ export const MobileNavItem = styled(Link)`
 
   &:hover {
     color: #2D5A27;
+  }
+`;
+
+export const MobileAuthButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(45, 90, 39, 0.1);
+`;
+
+export const MobileLoginButton = styled(Link)<{ to: string }>`
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  color: #2D5A27;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  background: rgba(123, 198, 163, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(123, 198, 163, 0.2);
+  }
+`;
+
+export const MobileSignUpButton = styled(Link)<{ to: string }>`
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7BC6A3 0%, #6BB592 100%);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(123, 198, 163, 0.3);
   }
 `;
