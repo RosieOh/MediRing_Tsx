@@ -1,8 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import * as S from './style';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
+import {
+  AuthButtons,
+  HeaderContainer,
+  HeaderContent,
+  HeaderNav,
+  HeaderNavItem,
+  LoginButton,
+  Logo,
+  LogoutButton,
+  MobileAuthButtons,
+  MobileLoginButton,
+  MobileLogoutButton,
+  MobileMenu,
+  MobileMenuButton,
+  MobileNavItem,
+  MobileSignUpButton,
+  MobileUserName,
+  MobileWelcomeMessage,
+  SignUpButton,
+  UserName,
+  WelcomeMessage
+} from './style';
 
 const Header: React.FC = () => {
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -19,42 +43,66 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <S.HeaderContainer className={isScrolled ? 'scrolled' : ''}>
-      <S.HeaderContent>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <S.HeaderLogo>MediRing</S.HeaderLogo>
-        </Link>
+    <HeaderContainer className={isScrolled ? 'scrolled' : ''}>
+      <HeaderContent>
+        <Logo to="/">MediRing</Logo>
 
-        <S.HeaderNav>
-          <S.HeaderNavItem to="/">홈</S.HeaderNavItem>
-          <S.HeaderNavItem to="/about">회사 소개</S.HeaderNavItem>
-          <S.HeaderNavItem to="/services">서비스</S.HeaderNavItem>
-          <S.HeaderNavItem to="/contact">문의하기</S.HeaderNavItem>
-          <S.AuthButtons>
-            <S.LoginButton to="/login">로그인</S.LoginButton>
-            <S.SignUpButton to="/signup">회원가입</S.SignUpButton>
-          </S.AuthButtons>
-        </S.HeaderNav>
+        <HeaderNav>
+          <HeaderNavItem to="/about">소개</HeaderNavItem>
+          <HeaderNavItem to="/search">병원 검색</HeaderNavItem>
+          <HeaderNavItem to="/community">커뮤니티</HeaderNavItem>
+          <HeaderNavItem to="/support">고객지원</HeaderNavItem>
+          {isAuthenticated && <HeaderNavItem to="/mypage">마이페이지</HeaderNavItem>}
+          {isAuthenticated && user?.isAdmin && <HeaderNavItem to="/admin">관리자</HeaderNavItem>}
+          <AuthButtons>
+            {isAuthenticated ? (
+              <WelcomeMessage>
+                <UserName>{user?.name}님 환영합니다</UserName>
+                <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+              </WelcomeMessage>
+            ) : (
+              <>
+                <LoginButton to="/login">로그인</LoginButton>
+                <SignUpButton to="/signup">회원가입</SignUpButton>
+              </>
+            )}
+          </AuthButtons>
+        </HeaderNav>
 
-        <S.MobileMenuButton onClick={toggleMobileMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </S.MobileMenuButton>
-      </S.HeaderContent>
+        <MobileMenuButton onClick={toggleMobileMenu}>
+          ☰
+        </MobileMenuButton>
+      </HeaderContent>
 
-      <S.MobileMenu isOpen={isMobileMenuOpen}>
-        <S.MobileNavItem to="/" onClick={toggleMobileMenu}>홈</S.MobileNavItem>
-        <S.MobileNavItem to="/about" onClick={toggleMobileMenu}>회사 소개</S.MobileNavItem>
-        <S.MobileNavItem to="/services" onClick={toggleMobileMenu}>서비스</S.MobileNavItem>
-        <S.MobileNavItem to="/contact" onClick={toggleMobileMenu}>문의하기</S.MobileNavItem>
-        <S.MobileAuthButtons>
-          <S.MobileLoginButton to="/login" onClick={toggleMobileMenu}>로그인</S.MobileLoginButton>
-          <S.MobileSignUpButton to="/signup" onClick={toggleMobileMenu}>회원가입</S.MobileSignUpButton>
-        </S.MobileAuthButtons>
-      </S.MobileMenu>
-    </S.HeaderContainer>
+      <MobileMenu isOpen={isMobileMenuOpen}>
+        <MobileNavItem to="/about" onClick={toggleMobileMenu}>소개</MobileNavItem>
+        <MobileNavItem to="/search" onClick={toggleMobileMenu}>병원 검색</MobileNavItem>
+        <MobileNavItem to="/community" onClick={toggleMobileMenu}>커뮤니티</MobileNavItem>
+        <MobileNavItem to="/support" onClick={toggleMobileMenu}>고객지원</MobileNavItem>
+        {isAuthenticated && <MobileNavItem to="/mypage" onClick={toggleMobileMenu}>마이페이지</MobileNavItem>}
+        {isAuthenticated && user?.isAdmin && <MobileNavItem to="/admin" onClick={toggleMobileMenu}>관리자</MobileNavItem>}
+        <MobileAuthButtons>
+          {isAuthenticated ? (
+            <MobileWelcomeMessage>
+              <MobileUserName>{user?.name}님 환영합니다</MobileUserName>
+              <MobileLogoutButton onClick={handleLogout}>로그아웃</MobileLogoutButton>
+            </MobileWelcomeMessage>
+          ) : (
+            <>
+              <MobileLoginButton to="/login" onClick={toggleMobileMenu}>로그인</MobileLoginButton>
+              <MobileSignUpButton to="/signup" onClick={toggleMobileMenu}>회원가입</MobileSignUpButton>
+            </>
+          )}
+        </MobileAuthButtons>
+      </MobileMenu>
+    </HeaderContainer>
   );
 };
 
